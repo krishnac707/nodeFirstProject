@@ -5,17 +5,17 @@ export const checkSeller = async (req, res, next) => {
     try {
 
         const { token } = req.body;
-        if (!token) return res.status(404).json({ status: "error", message: "Token is mandetory" });
+        if (!token) return res.status(404).json({ success:false, message: "Token is mandetory" });
         const decoder = jwt.verify(token, process.env.JWT_SECRET)
-        if (!decoder) return res.status(404).json({ status: "error", message: "Not a valid Token" });
+        if (!decoder) return res.status(404).json({ success:false, message: "Not a valid Token" });
         const userid = decoder?.userId;
         const user = await userModal.findById(userid)
-        if (!user || user?.role != "Seller") return res.status(404).json({ status: "error", message: "Not a valid user to add Product" })
+        if (!user || user?.role != "Seller") return res.status(404).json({ success:false, message: "Not a valid user to add Product" })
         next()
 
     }
     catch (error) {
-        return res.status(500).json({ status: "error", error: error.message })
+        return res.status(500).json({ success:false, error: error.message })
     }
 }
 
@@ -31,7 +31,7 @@ export const isAdmin = async (req, res, next) => {
         next();
     }
     catch (error) {
-        return res.status(500).json({ status: "error", error: error.message })
+        return res.status(500).json({ success:false, error: error.message })
     }
 }
 
@@ -47,6 +47,6 @@ export const isUserPresent = async (req,res,next) => {
         next();
     }
     catch (error) {
-        return res.status(500).json({ status: "error", error: error.message })
+        return res.status(500).json({ success:false, error: error.message })
     }
 }

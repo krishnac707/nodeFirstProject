@@ -1,0 +1,32 @@
+.seller-div{
+    text-align: center;
+}
+
+.your-pro-heading{
+    text-align: center;
+    margin-top: 3%;
+}
+
+.your-product-single-product-div{
+    width: 100%;
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 3%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.pro-image-div{
+    width: 23%;
+    padding: 10px;
+    height: fit-content;
+    border: 1px solid gainsboro;
+}
+
+.pro-image-div>div:nth-child(1)>img{
+    width: 100%;
+    object-fit: contain;
+    height: 200px;
+    margin-bottom:1% ;
+}
