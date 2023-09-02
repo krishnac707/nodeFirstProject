@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
 
         const getCurrentUser = async () => {
             try {
-                const response = await api.post("/get-current-user", { token })
+                const response = await api.post("/all/get-current-user", { token })
                 if (response.data.success) {
                     dispatch({
                         type: "LOGIN",

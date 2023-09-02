@@ -20,7 +20,7 @@ const Login = () => {
     const formSubmit = async (event) => {
         event.preventDefault();
         if (userData.email && userData.password) {
-            const response = await api.post("/login", { userData })
+            const response = await api.post("/all/login", { userData })
             if (response.data.success) { 
                     dispatch({
                         type: "LOGIN",

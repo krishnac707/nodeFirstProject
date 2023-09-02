@@ -23,7 +23,7 @@ const AddProduct = () => {
         if (productData.name && productData.price && productData.size && productData.image && productData.category) {
             const token = JSON.parse(localStorage.getItem("token"));
             try {
-                const response = await api.post("/add-products", { productData,token })
+                const response = await api.post("/seller/add-products", { productData,token })
                 if (response.data.success) {
                     router("/");
                     toast.success(response.data.message);

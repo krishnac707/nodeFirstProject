@@ -14,7 +14,7 @@ const YourProduct = () => {
     useEffect(() => {
         const getSellerProduct = async () => {
             const token = JSON.parse(localStorage.getItem("token"));
-            const response = await api.post("/your-product", { token })
+            const response = await api.post("/seller/your-product", { token })
             if (response.data.success) {
                 setSellerProduct(response.data.products)
             }

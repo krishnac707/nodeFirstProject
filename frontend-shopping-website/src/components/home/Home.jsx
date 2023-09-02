@@ -12,7 +12,7 @@ const Home = () => {
 
     const getAllProducts = async () =>{
 
-      const response = await api.get("/all-products")
+      const response = await api.get("/all/all-products")
       if(response.data.success){
         setAllProducts(response.data.product)
       }

@@ -15,7 +15,7 @@ const Profile = () => {
     const [isNumberVerified, setIsNumberVerified] = useState(true);
     
     const otpSent = async () => {
-        const response = await api.post("/get-otp", { userId: state?.user?._id })
+        const response = await api.post("/all/get-otp", { userId: state?.user?._id })
         if (response.data.success) {
             toast.success("Otp has been sent to your register mobile number")
             setIsSentOtp(true);
@@ -23,7 +23,7 @@ const Profile = () => {
     };
 
     const verifyOtp = async () => {
-        const response = await api.post("/verify-otp", { userId: state?.user?._id, otpFromFrontend: otp })
+        const response = await api.post("/all/verify-otp", { userId: state?.user?._id, otpFromFrontend: otp })
         console.log(response.data.success, "30");
         if (response.data.success) {
             setIsSentOtp(false);
@@ -35,7 +35,7 @@ const Profile = () => {
     useEffect(() => {
         const getYourNumber = async () => {
             try {
-                const response = await api.post("/get-number", { userId: state?.user?._id })
+                const response = await api.post("/all/get-number", { userId: state?.user?._id })
                 if (response.data.success) {
                     setIsNumber(response.data.number)
                     setIsNumberVerified(response.data.isVerified)

@@ -23,7 +23,7 @@ const Register = () => {
         event.preventDefault();
         if (userData.name && userData.email && userData.number && userData.password && userData.confirmPassword && userData.role) {
             if (userData.password === userData.confirmPassword) {
-                const response = await api.post("/register", { userData })
+                const response = await api.post("/all/register", { userData })
                 if (response.data.success) {
                     setUserData({ name: "", email: "",number:"", password: "", confirmPassword: "", role: "Buyer" })
                     router("/login");
