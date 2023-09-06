@@ -5,11 +5,11 @@ import { addComment, addProduct, addRatings, deleteProduct, getYourProduct, upda
 const router = express.Router();
 
 //seller
-app.post("/add-products", checkSeller, addProduct);
-app.post("/your-product", checkSeller, getYourProduct);
-app.patch("/udpate-your-products", checkSeller, updateProduct);
-app.delete("/delete-product", checkSeller, deleteProduct);
-app.patch("/add-rating", isUserPresent, addRatings);
-app.patch("/add-comment", isUserPresent, addComment);
+router.post("/add-products", checkSeller, addProduct);
+router.post("/your-product", checkSeller, getYourProduct);
+router.patch("/udpate-your-products", checkSeller, updateProduct);
+router.delete("/delete-product", checkSeller, deleteProduct);
+router.patch("/add-rating", isUserPresent, addRatings);
+router.patch("/add-comment", isUserPresent, addComment);
 
 export default router

@@ -6,9 +6,9 @@ import sellerRoutes from "./Sellerroutes.js"
 
 const router = express.Router()
 
-router.use("all",allRoutes);
-router.use("buyer",buyerRoutes)
-router.use("admin",adminRoutes)
-router.use("seller",sellerRoutes)
+router.use("/all",allRoutes);
+router.use("/buyer",buyerRoutes)
+router.use("/admin",adminRoutes)
+router.use("/seller",sellerRoutes)
 
 export default router;

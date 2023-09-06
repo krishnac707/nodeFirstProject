@@ -95,9 +95,29 @@ export const removeCartProduct = async (req, res) => {
         const user = await userModal.findById({ _id: userId });
         const cartProduct = user.cart;
         const removeProduct = cartProduct.indexOf(productId);
-        cartProduct.splice(removeProduct,1)
+        cartProduct.splice(removeProduct, 1)
         await user.save();
-        return res.status(204).json({success:true,message:"product delete successfully"})
+        return res.status(204).json({ success: true, message: "product delete successfully" })
+    }
+    catch (error) {
+        return res.status(500).json({ status: "error", message: error })
+    }
+}
+
+export const removeWishlistProduct = async (req, res) => {
+    try {
+        const { token, productId } = req.body;
+        if (!token || !productId) return res.status(404).json({ status: "error", message: "token and productid is compulsory" })
+        const decoder = jwt.verify(token, process.env.JWT_SECRET)
+        const userId = decoder?.userId;
+        const user = await userModal.findById({ _id: userId });
+        const wishlistProduct = user.wishlist;
+        console.log(productId, "116");
+        const remainingProduct = wishlistProduct.filter((item) => item !== productId);
+        // cartProduct.splice(removeProduct,1)
+        user.wishlist.push(remainingProduct);
+        await user.save();
+        return res.status(204).json({ success: true, message: "product removed successfully" })
     }
     catch (error) {
         return res.status(500).json({ status: "error", message: error })
@@ -105,27 +125,13 @@ export const removeCartProduct = async (req, res) => {
 
 }
 
-export const removeWishlistProduct = async (req, res) => {
+export const placeOrder = async (req, res) => {
     try {
-        const { token, productId } = req.body;
-        if(!token || !productId) return res.status(404).json({status:"error",message:"token and productid is compulsory"})
-        const decoder = jwt.verify(token, process.env.JWT_SECRET)
-        const userId = decoder?.userId;
-        const user = await userModal.findById({ _id: userId });
-        const wishlistProduct = user.wishlist;
-        console.log(productId,"116");
-        const remainingProduct = wishlistProduct.filter((item)=>item !== productId);
-        // cartProduct.splice(removeProduct,1)
-        console.log(remainingProduct,"119");
-        user.wishlist.push(remainingProduct);
-        console.log(user.wishlist,"hello");
-        console.log(user,"121");
-        await user.save();
-        return res.status(204).json({success:true,message:"product removed successfully"})
+        const {userId} =  req.body;
+        if (!userId) return res.json({ success: false, message: "userId is mandetory..." })
     }
     catch (error) {
         return res.status(500).json({ status: "error", message: error })
     }
-
 }
 

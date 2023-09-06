@@ -5,9 +5,9 @@ import { sendTwilioMessage } from "../helpers/Sms.js";
 
 export const Register = async (req, res) => {
     try {
-        const { userData } = req.body;
+        // const { userData } = req.body;
         // console.log(userData, "userdata");
-        const { name, email, password, role, number } = userData;
+        const { name, email, password, role, number } = req.body.userData;
         if (!name || !email || !password || !role || !number) return res.json({ success: false, message: "All fields are mandetory..." })
 
         const isEmailExist = await userModal.find({ email: email })
@@ -29,10 +29,12 @@ export const Register = async (req, res) => {
 
 export const Login = async (req, res) => {
     try {
+        // const {userData} = req.body;
+        // console.log(userData,"32");
         const { email, password } = req.body.userData;
-        if (!email || !password) return res.json({ success: false, message: "please fill all details" });
-
-        const user = await userModal.findOne({ email });
+        if (!email || !password) return res.json({ success: false, message: "please fill all details" })
+        const user = await userModal.findOne({ email:email });
+        // console.log(user,"38");
         if (!user) return res.json({ success: false, message: "User not found" })
         if (user.isBlocked) return res.status(404).json({ success: false, message: "Your account is  blocked by admin please contact with us to login" })
         const isPasswordCorrect = await bcrypt.compare(password, user.password)
@@ -60,8 +62,9 @@ export const Login = async (req, res) => {
 
 export const getCurrentUser = async (req, res) => {
     try {
-        const { token } = req.body;
 
+        const {token} = req.body.token;
+        console.log(token,"66");
         if (!token) return res.status(404).json({ success: false, message: "token is required" })
         const decoder = jwt.verify(token, process.env.JWT_SECRET)
         if (!decoder) return res.status(404).json({ success: false, message: "Not a valid token" })
@@ -69,7 +72,6 @@ export const getCurrentUser = async (req, res) => {
         const userid = decoder?.userId
         const user = await userModal.findById(userid)
         if (!user) return res.status(404).json({ success: false, message: "User not found" })
-
         const userObj = {
             name: user?.name,
             email: user?.email,
@@ -86,7 +88,7 @@ export const getCurrentUser = async (req, res) => {
 export const getNumber = async (req, res) => {
 
     try {
-        const { userId } = req.body;
+        const { userId } = req.body.userId;
         if (!userId) return res.json({ success: false, message: "userId is mandetory..." })
         const userNumber = await userModal.findById(userId).select("number isNumberVerified");
         if (userNumber) {

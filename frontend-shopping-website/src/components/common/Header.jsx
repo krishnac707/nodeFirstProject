@@ -7,6 +7,11 @@ const Header = () => {
   const { state, dispatch } = useContext(AuthContext);
   const router = useNavigate();
 
+  const logoutFunction = () =>{
+    router("/")
+    dispatch({ type: "LOGOUT" })
+  }
+
   return (
     <div className='header-navbar-body'>
       <div className='header-logo-div'><h2 onClick={() => router("/")}>LOGO</h2></div>
@@ -28,8 +33,8 @@ const Header = () => {
         {
           state?.user?.name ? <div>
             <h3 onClick={()=>router("/profile")}>{state?.user?.name}</h3>
-            <h3>Cart</h3>
-            <h3 onClick={() => dispatch({ type: "LOGOUT" })}>Logout</h3>
+            <h3 onClick={()=>router("/cart")}>Cart</h3>
+            <h3 onClick={logoutFunction}>Logout</h3>
           </div>
             :
             <div>

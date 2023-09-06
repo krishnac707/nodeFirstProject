@@ -4,7 +4,6 @@ import { allProducts } from "../controllers/Product.controllers.js";
 
 const router = express.Router()
 
-
 //All
 router.post("/register", Register)
 router.post("/login", Login)

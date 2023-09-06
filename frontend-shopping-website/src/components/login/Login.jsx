@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/Auth.context';
 import api from '../apiConfig';
@@ -20,7 +19,10 @@ const Login = () => {
     const formSubmit = async (event) => {
         event.preventDefault();
         if (userData.email && userData.password) {
+            console.log("hello","22");
+            console.log(userData,"23");
             const response = await api.post("/all/login", { userData })
+            console.log(response,"24");
             if (response.data.success) { 
                     dispatch({
                         type: "LOGIN",
